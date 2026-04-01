@@ -1419,12 +1419,18 @@ async function startServer() {
       res.redirect(302, '/favicon.svg');
     });
   } else {
-    app.use(express.static("dist"));
+    const distDir = path.resolve(__dirname, "dist");
+    const publicDir = path.resolve(__dirname, "public");
+
+    // Serve built assets and also public PWA files explicitly in production.
+    app.use(express.static(distDir));
+    app.use(express.static(publicDir));
+
     app.get('/favicon.ico', (_req, res) => {
       res.redirect(302, '/favicon.svg');
     });
     app.get("*", (req, res) => {
-      res.sendFile(path.resolve(__dirname, "dist", "index.html"));
+      res.sendFile(path.join(distDir, "index.html"));
     });
   }
 
