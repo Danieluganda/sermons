@@ -5,14 +5,16 @@ const ASSETS = [
   '/manifest.json',
   '/favicon.svg',
   '/icons/icon-192.svg',
-  '/icons/icon-512.svg',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap'
+  '/icons/icon-512.svg'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
+    caches.open(CACHE_NAME).then(async (cache) => {
+      // Cache assets one by one so one failure doesn't abort SW installation.
+      await Promise.allSettled(
+        ASSETS.map((asset) => cache.add(asset))
+      );
     })
   );
   self.skipWaiting();

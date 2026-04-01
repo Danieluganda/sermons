@@ -1422,9 +1422,20 @@ async function startServer() {
     const distDir = path.resolve(__dirname, "dist");
     const publicDir = path.resolve(__dirname, "public");
 
+    const staticWithMimeFix = {
+      setHeaders: (res: any, filePath: string) => {
+        const ext = path.extname(filePath).toLowerCase();
+        if (ext === '.css') res.setHeader('Content-Type', 'text/css; charset=utf-8');
+        if (ext === '.js' || ext === '.mjs') res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+        if (ext === '.json') res.setHeader('Content-Type', 'application/json; charset=utf-8');
+        if (ext === '.svg') res.setHeader('Content-Type', 'image/svg+xml');
+        if (ext === '.webmanifest') res.setHeader('Content-Type', 'application/manifest+json; charset=utf-8');
+      }
+    };
+
     // Serve built assets and also public PWA files explicitly in production.
-    app.use(express.static(distDir));
-    app.use(express.static(publicDir));
+    app.use(express.static(distDir, staticWithMimeFix));
+    app.use(express.static(publicDir, staticWithMimeFix));
 
     app.get('/favicon.ico', (_req, res) => {
       res.redirect(302, '/favicon.svg');
