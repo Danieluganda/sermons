@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192" role="img" aria-label="Sermon Companion app icon">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4a5a7f" />
+      <stop offset="100%" stop-color="#2c3e50" />
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="38" fill="url(#g)" />
+  <circle cx="96" cy="96" r="62" fill="none" stroke="#e0e3eb" stroke-width="8" opacity="0.95" />
+  <path d="M59 68c16 0 26 4 37 13c11-9 21-13 37-13v64c-16 0-26 4-37 13c-11-9-21-13-37-13z" fill="none" stroke="#e0e3eb" stroke-width="7" stroke-linejoin="round" />
+  <path d="M96 74v64" stroke="#e0e3eb" stroke-width="7" stroke-linecap="round" />
+</svg>
