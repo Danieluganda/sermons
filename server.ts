@@ -1415,8 +1415,14 @@ async function startServer() {
       appType: "spa",
     });
     app.use(vite.middlewares);
+    app.get('/favicon.ico', (_req, res) => {
+      res.redirect(302, '/favicon.svg');
+    });
   } else {
     app.use(express.static("dist"));
+    app.get('/favicon.ico', (_req, res) => {
+      res.redirect(302, '/favicon.svg');
+    });
     app.get("*", (req, res) => {
       res.sendFile(path.resolve(__dirname, "dist", "index.html"));
     });
